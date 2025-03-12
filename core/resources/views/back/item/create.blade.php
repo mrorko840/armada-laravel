@@ -242,12 +242,12 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group d-none">
                         <label for="brand_id">{{ __('Select Brand') }} </label>
                         <select name="brand_id" id="brand_id" class="form-control" >
                             <option value="" selected>{{__('Select Brand')}}</option>
                             @foreach(DB::table('brands')->whereStatus(1)->get() as $brand)
-                            <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                <option @if(strtolower($brand->name) == 'armada') selected @endif value="{{ $brand->id }}">{{ $brand->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -269,7 +269,7 @@
                         <select name="tax_id" id="tax_id" class="form-control">
                             <option value="">{{__('Select One')}}</option>
                             @foreach(DB::table('taxes')->whereStatus(1)->get() as $tax)
-                            <option value="{{ $tax->id }}">{{ $tax->name }}</option>
+                                <option @if(strtolower($tax->name) == 'no tax') selected @endif value="{{ $tax->id }}">{{ $tax->name }}</option>
                             @endforeach
                         </select>
                     </div>

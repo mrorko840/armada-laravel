@@ -140,7 +140,7 @@
               @endforeach
               @endif
 
-              <!-- Widget Brand Filter-->
+              {{-- <!-- Widget Brand Filter-->
               <section class="widget widget-categories card rounded p-4">
                 <h3 class="widget-title">{{__('Filter by Brand')}}</h3>
                 <div class="custom-control custom-checkbox">
@@ -153,7 +153,7 @@
                     <label class="custom-control-label" for="{{$getbrand->slug}}">{{$getbrand->name}}</label>
                   </div>
                 @endforeach
-              </section>
+              </section> --}}
 
 
             </aside>

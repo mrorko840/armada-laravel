@@ -31,7 +31,7 @@
         <div class="slider-area-wrapper">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
                         <!-- Main Slider-->
                         <div class="hero-slider">
                             <div class="hero-slider-main owl-carousel dots-inside" >
@@ -53,8 +53,8 @@
                                                 <div class="subtitle text-body">{{ $slider->details }}</div>
                                             </div>
                                             @if($slider->link != '#')
-                                            <a class="btn btn-primary scale-up delay-1"
-                                                href="{{ $slider->link }}"> <span>{{ __('Buy Now') }}</span>
+                                            <a class="btn btn-primary scale-up delay-1" href="{{ $slider->link }}">
+                                                <span>{{ __('Buy Now') }}</span>
                                             </a>
                                             @endif
                                         </div>
@@ -64,7 +64,7 @@
                         </div>
                     </div>
 
-                    @if (isset($hero_banner))
+                    {{-- @if (isset($hero_banner))
                     <div class="col-lg-4 d-none d-lg-block">
                         <a href="{{$hero_banner['url1']}}" class="sright-image">
                             <img src="{{asset('assets/images/'.$hero_banner['img1'])}}" alt="">
@@ -91,7 +91,7 @@
                             </div>
                         </a>
                     </div>
-                    @endif
+                    @endif --}}
 
                 </div>
             </div>
@@ -120,7 +120,116 @@
     @endif
 
 
-    @if ($setting->campaign_status == 1)
+    {{-- New Arrival --}}
+    <section class="selected-product-section speacial-product-sec mt-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title pb-0">
+                        <h2 class="h3">New Arrival</h2>
+                        {{-- <div class="right-area">
+                            <a class="right_link" href="{{route('front.campaign')}}">{{ __('View All') }} <i class="icon-chevron-right"></i></a>
+                        </div> --}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="type_product_view d-none">
+                    <img  src="{{asset('assets/images/ajax_loader.gif')}}" alt="">
+                </div>
+                <div class="col-lg-12" id="type_product_view2">
+
+                    <div class="new-arrival-slider owl-carousel" >
+                        @foreach ($products->orderBy('id','DESC')->get()  as $item)
+                            @if ($item->is_type == 'new')
+                                <div class="slider-item">
+                                    <div class="product-card ">
+                                        <div class="product-thumb">
+                                            @if (!$item->is_stock())
+                                                <div class="product-badge bg-secondary border-default text-body
+                                                ">{{__('out of stock')}}</div>
+                                            @endif
+                                            @if($item->previous_price && $item->previous_price !=0)
+                                            <div class="product-badge product-badge2 bg-info"> -{{PriceHelper::DiscountPercentage($item)}}</div>
+                                            @endif
+                                            <img src="{{asset('assets/images/'.$item->thumbnail)}}" alt="Product">
+                                            <div class="product-button-group">
+                                                {{-- <a class="product-button wishlist_store" href="{{route('user.wishlist.store',$item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a> --}}
+                                                {{-- <a data-target="{{route('fornt.compare.product',$item->id)}}" class="product-button product_compare" href="javascript:;" title="{{__('Compare')}}"><i class="icon-repeat"></i></a> --}}
+                                                {{-- @include('includes.item_footer',['sitem' => $item]) --}}
+                                            </div>
+                                        </div>
+                                        <div class="product-card-inner">
+                                            <div class="product-card-body">
+                                                <div class="product-category"><a href="{{route('front.catalog').'?category='.$item->category->slug}}">{{$item->category->name}}</a></div>
+                                                <h3 class="product-title"><a href="{{route('front.product',$item->slug)}}">
+                                                    {{ Str::limit($item->name, 35) }}
+                                                </a></h3>
+                                                <div class="rating-stars">
+                                                    {!! renderStarRating($item->reviews->avg('rating')) !!}
+                                                </div>
+                                                <h4 class="product-price">
+                                                @if ($item->previous_price != 0)
+                                                <del>{{PriceHelper::setPreviousPrice($item->previous_price)}}</del>
+                                                @endif
+                                                {{PriceHelper::grandCurrencyPrice($item)}}
+                                                </h4>
+                                                
+                                                <div class="d-flex gap-1">
+                                                    <a class="btn btn-sm btn-primary product-button wishlist_store" href="{{route('user.wishlist.store',$item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
+                                                    @include('includes.item_footer_new',['sitem' => $item])
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    
+    {{-- man and woman --}}
+    @if ($setting->is_two_c_b == 1)
+        <div class="bannner-section mt-50">
+            <div class="container ">
+                <div class="row gx-3">
+                    <div class="col-sm-6">
+                        <a href="{{$banner_third['url1']}}" class="genius-banner">
+                            <img class="lazy" data-src="{{ asset('assets/images/'.$banner_third['img1']) }}" alt="">
+                            <div class="inner-content">
+                                @if (isset($banner_third['subtitle1']))
+                                    <p>{{$banner_third['subtitle1']}}</p>
+                                @endif
+                                @if (isset($banner_third['title1']))
+                                    <h4>{{$banner_third['title1']}}</h4>
+                                @endif
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="{{$banner_third['url2']}}" class="genius-banner">
+                            <img class="lazy" data-src="{{ asset('assets/images/'.$banner_third['img2']) }}" alt="">
+                            <div class="inner-content">
+                                @if (isset($banner_third['subtitle2']))
+                                    <p>{{$banner_third['subtitle2']}} </p>
+                                @endif
+                                @if (isset($banner_third['title2']))
+                                    <h4>{{$banner_third['title2']}}</h4>
+                                @endif
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    {{-- @if ($setting->campaign_status == 1)
         <div class="deal-of-day-section mt-20">
             <div class="container">
                 <div class="row">
@@ -192,7 +301,7 @@
                 </div>
             </div>
         </div>
-    @endif
+    @endif --}}
 
 
     @if ($setting->is_three_c_b_first == 1)
@@ -244,6 +353,7 @@
     @endif
 
 
+    {{-- popular category --}}
     @if ($setting->is_popular_category == 1)
         <section class="newproduct-section popular-category-sec mt-50">
             <div class="container">
@@ -280,9 +390,9 @@
                                         @endif
                                             <img class="lazy" data-src="{{asset('assets/images/'.$popular_category_item->thumbnail)}}" alt="Product">
                                             <div class="product-button-group">
-                                                <a class="product-button wishlist_store" href="{{route('user.wishlist.store',$popular_category_item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
+                                                {{-- <a class="product-button wishlist_store" href="{{route('user.wishlist.store',$popular_category_item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
                                                 <a data-target="{{route('fornt.compare.product',$popular_category_item->id)}}" class="product-button product_compare" href="javascript:;" title="{{__('Compare')}}"><i class="icon-repeat"></i></a>
-                                                @include('includes.item_footer',['sitem'=>$popular_category_item])
+                                                @include('includes.item_footer',['sitem'=>$popular_category_item]) --}}
                                             </div>
                                         </div>
                                     <div class="product-card-body">
@@ -298,7 +408,11 @@
                                             <del>{{PriceHelper::setPreviousPrice($popular_category_item->previous_price)}}</del>
                                             @endif
                                             {{PriceHelper::grandCurrencyPrice($popular_category_item)}}
-                                            </h4>
+                                        </h4>
+                                        <div class="d-flex gap-1">
+                                            <a class="btn btn-sm btn-primary product-button wishlist_store" href="{{route('user.wishlist.store',$popular_category_item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
+                                            @include('includes.item_footer_new',['sitem' => $popular_category_item])
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -369,10 +483,10 @@
                     <div class="col-lg-12">
                         <div class="section-title">
                             <div class="links">
-                                <a data-href="{{route('front.get.product','feature')}}" data-target="type_product_view" href="javascript:;" class="product_get active">{{__('Featured')}}</a>
-                                <a data-href="{{route('front.get.product','best')}}" data-target="type_product_view" class="product_get" href="javascript:;">{{__('Best Seller')}}</a>
+                                {{-- <a data-href="{{route('front.get.product','feature')}}" data-target="type_product_view" href="javascript:;" class="product_get active">{{__('Featured')}}</a> --}}
+                                <a data-href="{{route('front.get.product','best')}}" data-target="type_product_view" class="product_get active" href="javascript:;">{{__('Best Seller')}}</a>
                                 <a data-href="{{route('front.get.product','top')}}" data-target="type_product_view" class="product_get" href="javascript:;">{{__('Top Rated')}}</a>
-                                <a data-href="{{route('front.get.product','new')}}" data-target="type_product_view" class="product_get" href="javascript:;">{{__('New Product')}}</a>
+                                {{-- <a data-href="{{route('front.get.product','new')}}" data-target="type_product_view" class="product_get" href="javascript:;">{{__('New Product')}}</a> --}}
                             </div>
                         </div>
                     </div>
@@ -385,7 +499,7 @@
 
                         <div class="features-slider  owl-carousel" >
                             @foreach ($products->orderBy('id','DESC')->get()  as $item)
-                                @if ($item->is_type == 'feature')
+                                @if ($item->is_type == 'best')
                                     <div class="slider-item">
                                         <div class="product-card ">
                                             <div class="product-thumb">
@@ -397,28 +511,32 @@
                                                 <div class="product-badge product-badge2 bg-info"> -{{PriceHelper::DiscountPercentage($item)}}</div>
                                                 @endif
                                                 <img class="lazy" data-src="{{asset('assets/images/'.$item->thumbnail)}}" alt="Product">
-                                                <div class="product-button-group"><a class="product-button wishlist_store" href="{{route('user.wishlist.store',$item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
+                                                <div class="product-button-group">
+                                                    {{-- <a class="product-button wishlist_store" href="{{route('user.wishlist.store',$item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
                                                     <a data-target="{{route('fornt.compare.product',$item->id)}}" class="product-button product_compare" href="javascript:;" title="{{__('Compare')}}"><i class="icon-repeat"></i></a>
-                                                    @include('includes.item_footer',['sitem' => $item])
+                                                    @include('includes.item_footer',['sitem' => $item]) --}}
                                                 </div>
                                             </div>
                                             <div class="product-card-inner">
-                                            <div class="product-card-body">
-                                                <div class="product-category"><a href="{{route('front.catalog').'?category='.$item->category->slug}}">{{$item->category->name}}</a></div>
-                                                <h3 class="product-title"><a href="{{route('front.product',$item->slug)}}">
-                                                    {{ Str::limit($item->name, 35) }}
-                                                </a></h3>
-                                                <div class="rating-stars">
-                                                    {!! renderStarRating($item->reviews->avg('rating')) !!}
+                                                <div class="product-card-body">
+                                                    <div class="product-category"><a href="{{route('front.catalog').'?category='.$item->category->slug}}">{{$item->category->name}}</a></div>
+                                                    <h3 class="product-title"><a href="{{route('front.product',$item->slug)}}">
+                                                        {{ Str::limit($item->name, 35) }}
+                                                    </a></h3>
+                                                    <div class="rating-stars">
+                                                        {!! renderStarRating($item->reviews->avg('rating')) !!}
+                                                    </div>
+                                                    <h4 class="product-price">
+                                                        @if ($item->previous_price != 0)
+                                                        <del>{{PriceHelper::setPreviousPrice($item->previous_price)}}</del>
+                                                        @endif
+                                                        {{PriceHelper::grandCurrencyPrice($item)}}
+                                                    </h4>
+                                                    <div class="d-flex gap-1">
+                                                        <a class="btn btn-sm btn-primary product-button wishlist_store" href="{{route('user.wishlist.store',$item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
+                                                        @include('includes.item_footer_new',['sitem' => $item])
+                                                    </div>
                                                 </div>
-                                                <h4 class="product-price">
-                                                @if ($item->previous_price != 0)
-                                                <del>{{PriceHelper::setPreviousPrice($item->previous_price)}}</del>
-                                                @endif
-                                                {{PriceHelper::grandCurrencyPrice($item)}}
-                                                </h4>
-                                            </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -500,6 +618,7 @@
     </div>
     @endif
 
+    
     @if ($setting->is_two_column_category == 1)
         <div class="flash-sell-area mt-50">
             <div class="container">
@@ -552,43 +671,8 @@
         </div>
     @endif
 
-    @if ($setting->is_two_c_b == 1)
-        <div class="bannner-section mt-50">
-            <div class="container ">
-                <div class="row gx-3">
-                    <div class="col-md-6">
-                        <a href="{{$banner_third['url1']}}" class="genius-banner">
-                            <img class="lazy" data-src="{{ asset('assets/images/'.$banner_third['img1']) }}" alt="">
-                            <div class="inner-content">
-                                @if (isset($banner_third['subtitle1']))
-                                    <p>{{$banner_third['subtitle1']}}</p>
-                                @endif
-                                @if (isset($banner_third['title1']))
-                                    <h4>{{$banner_third['title1']}}</h4>
-                                @endif
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-6">
-                        <a href="{{$banner_third['url2']}}" class="genius-banner">
-                            <img class="lazy" data-src="{{ asset('assets/images/'.$banner_third['img2']) }}" alt="">
-                            <div class="inner-content">
-                                @if (isset($banner_third['subtitle2']))
-                                    <p>{{$banner_third['subtitle2']}} </p>
-                                @endif
-                                @if (isset($banner_third['title2']))
-                                    <h4>{{$banner_third['title2']}}</h4>
-                                @endif
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
-
     @if ($setting->is_featured_category == 1)
-        <section class="selected-product-section featured_cat_sec sps-two mt-50">
+        <section class="selected-product-section featured_cat_sec sps-two mt-50 mb-30">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -619,18 +703,23 @@
                                 <div class="product-badge product-badge2 bg-info"> -{{PriceHelper::DiscountPercentage($feature_category_item)}}</div>
                                 @endif
                                     <img class="lazy" data-src="{{asset('assets/images/'.$feature_category_item->thumbnail)}}" alt="Product">
-                                    <div class="product-button-group"><a class="product-button wishlist_store" href="{{route('user.wishlist.store',$feature_category_item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
+                                    <div class="product-button-group">
+                                        {{-- <a class="product-button wishlist_store" href="{{route('user.wishlist.store',$feature_category_item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
                                         <a data-target="{{route('fornt.compare.product',$feature_category_item->id)}}" class="product-button product_compare" href="javascript:;" title="{{__('Compare')}}"><i class="icon-repeat"></i></a>
 
-                                        @include('includes.item_footer',['sitem'=>$feature_category_item])
+                                        @include('includes.item_footer',['sitem'=>$feature_category_item]) --}}
 
                                     </div>
                             </div>
                             <div class="product-card-body">
-                                <div class="product-category"><a href="{{route('front.catalog').'?category='.$feature_category_item->category->slug}}">{{$feature_category_item->category->name}}</a></div>
-                                <h3 class="product-title"><a href="{{route('front.product',$feature_category_item->slug)}}">
-                                    {{ Str::limit($feature_category_item->name, 35) }}
-                                </a></h3>
+                                <div class="product-category">
+                                    <a href="{{route('front.catalog').'?category='.$feature_category_item->category->slug}}">{{$feature_category_item->category->name}}</a>
+                                </div>
+                                <h3 class="product-title">
+                                    <a href="{{route('front.product',$feature_category_item->slug)}}">
+                                        {{ Str::limit($feature_category_item->name, 35) }}
+                                    </a>
+                                </h3>
                                 <div class="rating-stars">
                                 <i class="far fa-star filled"></i><i class="far fa-star filled"></i><i class="far fa-star filled"></i><i class="far fa-star filled"></i><i class="far fa-star filled"></i>
                                 </div>
@@ -639,7 +728,11 @@
                                     <del>{{PriceHelper::setPreviousPrice($feature_category_item->previous_price)}}</del>
                                     @endif
                                     {{PriceHelper::grandCurrencyPrice($feature_category_item)}}
-                                    </h4>
+                                </h4>
+                                <div class="d-flex gap-1">
+                                    <a class="btn btn-sm btn-primary product-button wishlist_store" href="{{route('user.wishlist.store',$feature_category_item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
+                                    @include('includes.item_footer_new',['sitem' => $feature_category_item])
+                                </div>
                             </div>
 
                         </div>

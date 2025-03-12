@@ -238,6 +238,41 @@ $(function ($) {
             },
         });
 
+        // new-arrival-slider Area Start
+        var $new_arrival_slider = $(".new-arrival-slider");
+        $new_arrival_slider.owlCarousel({
+            navText: [],
+            nav: true,
+            dots: false,
+            smartSpeed: 1200,
+            loop: true,  // Infinite loop চালু করার জন্য
+            autoplay: true,  // অটোপ্লে চালু করতে চাইলে
+            autoplayHoverPause: true, // মাউস রাখলে অটোপ্লে বন্ধ হবে
+            autoplayTimeout: 6000,
+            margin: 15,
+            thumbs: false,
+            responsive: {
+                0: {
+                    items: 2,
+                },
+                576: {
+                    items: 2,
+                },
+                768: {
+                    items: 3,
+                },
+                992: {
+                    items: 4,
+                },
+                1200: {
+                    items: 4,
+                },
+                1400: {
+                    items: 5
+                }
+            },
+        });
+
         // newproduct-slider Area Start
         var $newproduct_slider = $(".features-slider");
         $newproduct_slider.owlCarousel({

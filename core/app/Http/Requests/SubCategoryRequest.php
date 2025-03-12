@@ -29,6 +29,7 @@ class SubCategoryRequest extends FormRequest
         
         return [
             'slug'  => [$required,'regex:/^[a-zA-Z0-9-]+$/'],
+            'photo'     => [$required,'mimes:jpeg,jpg,png,svg'],
             'category_id'  => 'required',
             'name'  => 'required|max:255'
         ];

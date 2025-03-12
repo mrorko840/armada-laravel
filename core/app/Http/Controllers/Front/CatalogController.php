@@ -220,4 +220,12 @@ class CatalogController extends Controller
         return view('includes.search_suggest',compact('items'));
     }
 
+
+    public function subCategory($cat)
+    {
+        $category = Category::where('slug', $cat)->first();
+        $subCategories = Subcategory::where('category_id',$category->id)->get();
+        return view('front.catalog.category',compact('subCategories', 'category'));
+    }
+
 }

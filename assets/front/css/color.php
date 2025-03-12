@@ -38,7 +38,8 @@
 .toprated-slider.owl-carousel .owl-nav div:hover,
 .btn,
 .footer-social-links a,
-.a2a_kit a
+.a2a_kit a,
+.site-footer
 {
     background : <?php echo $color?>  !important;
 }

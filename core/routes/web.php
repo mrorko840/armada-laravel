@@ -413,6 +413,7 @@ Route::group(['middleware' => 'maintainance'], function () {
         Route::get('/catalog', 'Front\CatalogController@index')->name('front.catalog');
         Route::get('/search/suggest', 'Front\CatalogController@suggestSearch')->name('front.search.suggest');
         Route::get('/catalog/view/{type}', 'Front\CatalogController@viewType')->name('front.catalog.view');
+        Route::get('/category/{category}', 'Front\CatalogController@subCategory')->name('front.category.view');
 
 
         //------------ CHECKOUT ------------

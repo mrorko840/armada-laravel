@@ -4,6 +4,9 @@
        {{$data->category->name}}
     </td>
     <td>
+        <img src="{{ $data->photo ? asset('assets/images/'.$data->photo) : asset('assets/images/placeholder.png') }}" alt="Image Not Found">
+    </td>
+    <td>
         {{ $data->name }}
     </td>
 

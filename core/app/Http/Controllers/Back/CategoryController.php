@@ -115,6 +115,7 @@ class CategoryController extends Controller
         $request->validate([
             'serial' => 'required|numeric|max:150'
         ]);
+        
         $this->repository->update($category, $request);
         return redirect()->route('back.category.index')->withSuccess(__('Category Updated Successfully.'));
     }

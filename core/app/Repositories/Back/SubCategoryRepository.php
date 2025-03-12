@@ -3,6 +3,7 @@
 namespace App\Repositories\Back;
 
 
+use App\Helpers\ImageHelper;
 use App\Models\Subcategory;
 
 class SubCategoryRepository
@@ -18,6 +19,7 @@ class SubCategoryRepository
     public function store($request)
     {
         $input = $request->all();
+        $input['photo'] = ImageHelper::handleUploadedImage($request->file('photo'),'assets/images');
         Subcategory::create($input);
     }
 
@@ -31,7 +33,11 @@ class SubCategoryRepository
     public function update($category, $request)
     {
         $input = $request->all();
-        
+
+        if ($file = $request->file('photo')) {
+            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file,'/assets/images/',$category,'/assets/images/','photo');
+        }
+
         $category->update($input);
     }
 
@@ -44,6 +50,7 @@ class SubCategoryRepository
 
     public function delete($category)
     {
+        ImageHelper::handleDeletedImage($category,'photo','assets/images/');
         $category->delete();
     }
 

@@ -141,15 +141,17 @@ $(function ($) {
         },
     });
 
-    // newproduct-slider Area Start
-    var $newproduct_slider = $(".features-slider");
-    $newproduct_slider.owlCarousel({
+    // new_arrival-slider Area Start
+    var $new_arrival_slider = $(".new-arrival-slider");
+    $new_arrival_slider.owlCarousel({
         navText: [],
         nav: true,
         dots: false,
+        loop: true,  // Infinite loop চালু করার জন্য
+        autoplay: true,  // অটোপ্লে চালু করতে চাইলে
+        autoplayHoverPause: true, // মাউস রাখলে অটোপ্লে বন্ধ হবে
         autoplayTimeout: 6000,
         smartSpeed: 1200,
-        loop: false,
         margin: 15,
         responsive: {
             0: {
@@ -172,6 +174,70 @@ $(function ($) {
             }
         },
     });
+
+    // newproduct-slider Area Start
+    var $newproduct_slider = $(".features-slider");
+    $newproduct_slider.owlCarousel({
+        navText: [],
+        nav: true,
+        dots: false,
+        loop: false,
+        autoplayTimeout: 6000,
+        smartSpeed: 1200,
+        margin: 15,
+        responsive: {
+            0: {
+                items: 2,
+            },
+            576: {
+                items: 2,
+            },
+            768: {
+                items: 3,
+            },
+            992: {
+                items: 4,
+            },
+            1200: {
+                items: 4,
+            },
+            1400: {
+                items: 5
+            }
+        },
+    });
+
+    // // new-arrival-slider Area Start
+    // var $new_arrival_slider = $(".new-arrival-slider");
+    // $new_arrival_slider.owlCarousel({
+    //     navText: [],
+    //     nav: true,
+    //     dots: false,
+    //     autoplayTimeout: 6000,
+    //     smartSpeed: 1200,
+    //     loop: false,
+    //     margin: 15,
+    //     responsive: {
+    //         0: {
+    //             items: 2,
+    //         },
+    //         576: {
+    //             items: 2,
+    //         },
+    //         768: {
+    //             items: 3,
+    //         },
+    //         992: {
+    //             items: 4,
+    //         },
+    //         1200: {
+    //             items: 4,
+    //         },
+    //         1400: {
+    //             items: 5
+    //         }
+    //     },
+    // });
 
     // home-blog-slider
     var $home_blog_slider = $(".home-blog-slider");
