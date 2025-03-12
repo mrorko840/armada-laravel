@@ -93,12 +93,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="t-m-s-a">
+                        {{-- <div class="t-m-s-a">
                             <a class="track-order-link" href="{{route('front.order.track')}}"><i
                                     class="icon-map-pin"></i>{{ __('Track Order') }}</a>
                             <a class="track-order-link compare-mobile d-lg-none"
                                 href="{{route('fornt.compare.index')}}">{{ __('Compare') }}</a>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="col-md-8">
                         <div class="right-area">
@@ -107,7 +107,7 @@
                                 href="{{route('user.wishlist.index')}}"><i
                                     class="icon-heart"></i>{{ __('Wishlist') }}</a>
 
-                            <div class="t-h-dropdown ">
+                            {{-- <div class="t-h-dropdown ">
                                 <a class="main-link" href="#">{{ __('Currency') }}<i class="icon-chevron-down"></i></a>
                                 <div class="t-h-dropdown-menu">
                                     @foreach (DB::table('currencies')->get() as $currency)
@@ -116,7 +116,7 @@
                                                 class="icon-chevron-right pr-2"></i>{{$currency->name}}</a>
                                     @endforeach
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="login-register ">
                                 @if(!Auth::user())

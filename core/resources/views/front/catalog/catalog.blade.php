@@ -51,9 +51,9 @@
                         <div class="product-thumb">
                             <img class="lazy" data-src="{{asset('assets/images/'.$item->thumbnail)}}" alt="Product">
                             <div class="product-button-group">
-                                <a class="product-button wishlist_store" href="{{route('user.wishlist.store',$item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
+                                {{-- <a class="product-button wishlist_store" href="{{route('user.wishlist.store',$item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
                                 <a class="product-button product_compare" href="javascript:;" data-target="{{route('fornt.compare.product',$item->id)}}" title="{{__('Compare')}}"><i class="icon-repeat"></i></a>
-                                @include('includes.item_footer',['sitem' => $item])
+                                @include('includes.item_footer',['sitem' => $item]) --}}
                             </div>
                         </div>
                         <div class="product-card-body">
@@ -72,6 +72,10 @@
                                 @endif
                                 {{PriceHelper::grandCurrencyPrice($item)}}
                             </h4>
+                            <div class="d-flex gap-1">
+                                <a class="btn btn-sm btn-primary product-button wishlist_store" href="{{route('user.wishlist.store',$item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
+                                @include('includes.item_footer_new',['sitem' => $item])
+                            </div>
                         </div>
 
                         </div>
@@ -108,9 +112,9 @@
 
                                     <img class="lazy" data-src="{{asset('assets/images/'.$item->thumbnail)}}" alt="Product">
                                     <div class="product-button-group">
-                                        <a class="product-button wishlist_store" href="{{route('user.wishlist.store',$item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
+                                        {{-- <a class="product-button wishlist_store" href="{{route('user.wishlist.store',$item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
                                         <a data-target="{{route('fornt.compare.product',$item->id)}}" class="product-button product_compare" href="javascript:;" title="{{__('Compare')}}"><i class="icon-repeat"></i></a>
-                                        @include('includes.item_footer',['sitem' => $item])
+                                        @include('includes.item_footer',['sitem' => $item]) --}}
                                     </div>
                                 </div>
                                     <div class="product-card-inner">
@@ -131,6 +135,10 @@
                                             <p class="text-sm sort_details_show  text-muted hidden-xs-down my-1">
                                             {{ Str::limit(strip_tags($item->sort_details), 100) }}
                                             </p>
+                                            <div class="d-flex gap-1">
+                                                <a class="btn btn-sm btn-primary product-button wishlist_store" href="{{route('user.wishlist.store',$item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
+                                                @include('includes.item_footer_new',['sitem' => $item])
+                                            </div>
                                         </div>
 
 
