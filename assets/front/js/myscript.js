@@ -131,7 +131,7 @@ $(function ($) {
             navText: [],
             nav: true,
             dots: false,
-            loop: false,
+            loop: true,
             autoplayTimeout: 6000,
             smartSpeed: 1200,
             margin: 15,
