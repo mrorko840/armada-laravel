@@ -137,6 +137,7 @@ $(function ($) {
             margin: 15,
             thumbs: false,
             lazyLoad: true,
+            lazyLoadEager: 1,
             responsive: {
                 0: {
                     items: 2,
