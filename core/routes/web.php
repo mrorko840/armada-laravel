@@ -235,7 +235,7 @@ Route::group(['middleware' => 'adminlocalize'], function () {
             // Route::post('/setting/update', 'Back\SettingController@update')->name('back.setting.update'); // problem in this route
             Route::post('/setting-data/update', function () {
                 return "Hello";
-            })->name('back.setting.data.update'); // problem in this route
+            })->name('back.gggg.data.update'); // problem in this route
             
             Route::post('/setting/update/visiable', 'Back\SettingController@visiable')->name('back.setting.visible.update');
             Route::get('/announcement', 'Back\SettingController@announcement')->name('back.subscribers.announcement');
