@@ -62,6 +62,13 @@
     @endif
     {{-- Facebook pixel End --}}
 
+    {{-- custom css --}}
+    <style>
+        .btn-sm {
+            padding: 6px 8px;
+        }
+    </style>
+
 </head>
 <!-- Body-->
 
@@ -111,9 +118,9 @@
                                 <a class="main-link" href="#">{{ __('Currency') }}<i class="icon-chevron-down"></i></a>
                                 <div class="t-h-dropdown-menu">
                                     @foreach (DB::table('currencies')->get() as $currency)
-                                        <a class="{{Session::get('currency') == $currency->id ? 'active' : ($currency->is_default == 1 && !Session::has('currency') ? 'active' : '')}}"
-                                            href="{{route('front.currency.setup', $currency->id)}}"><i
-                                                class="icon-chevron-right pr-2"></i>{{$currency->name}}</a>
+                                    <a class="{{Session::get('currency') == $currency->id ? 'active' : ($currency->is_default == 1 && !Session::has('currency') ? 'active' : '')}}"
+                                        href="{{route('front.currency.setup', $currency->id)}}"><i
+                                            class="icon-chevron-right pr-2"></i>{{$currency->name}}</a>
                                     @endforeach
                                 </div>
                             </div> --}}
@@ -478,20 +485,51 @@
                         </div> --}}
                     </section>
                 </div>
+                <style>
+                    .social-icon-new {
+                        width: 35px;
+                        height: 35px;
+                        display: flex !important;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 10px;
+                        background-color: #fff;
+                    }
+
+                    .social-icon-new i {
+                        font-size: 20px;
+                        color: #333;
+                        transition: all 0.3s ease-in-out;
+                    }
+
+                    .social-icon-new:hover i {
+                        color: #ff7300;
+                    }
+                </style>
                 <div class="col-lg-4 col-sm-6">
                     <!-- Customer Info-->
                     <div class="widget widget-links widget-light-skin ">
-                        <h3 class="widget-title text-white">{{__('Social Links')}}</h3>
-                        <ul>
+                        <h3 class="widget-title text-white">{{__('Follow Us')}}</h3>
+                        <div class="d-flex flex-column gap-2">
                             @foreach ($links as $link_key => $link)
-                                <li>
-                                    <a class="text-white" href="{{$link}}">
-                                        {{ str_replace(['-f', '-in'], '', preg_replace("/^fab fa-/", "", $icons[$link_key])) }}
-                                    </a>
-                                </li>
+                                {{-- <li class=""> --}}
+                                    {{-- <a class="text-white" href="{{$link}}">
+                                        {{ str_replace(['-f', '-in'], '', preg_replace("/^fab fa-/", "", $icons[$link_key]))
+                                        }}
+                                    </a> --}}
+                                    <div class="d-flex align-items-center gap-2">
+                                        <a class="social-icon-new" href="{{$link}}">
+                                            <i class="{{$icons[$link_key]}}"></i>
+                                        </a>
+                                        <p class="text-white text-start mb-0">
+                                            {{ ucfirst(str_replace(['-f', '-in'], '', preg_replace("/^fab fa-/", "", $icons[$link_key]))) }}
+                                        </p>
+                                    </div>
+                                    {{--
+                                </li> --}}
                             @endforeach
-                        </ul>
-                        <div class="pt-3"><img class="d-block gateway_image"
+                        </div>
+                        <div class="pt-3 mt-3"><img class="d-block gateway_image"
                                 src="{{ $setting->footer_gateway_img ? asset('assets/images/' . $setting->footer_gateway_img) : asset('system/resources/assets/images/placeholder.png') }}">
                         </div>
                     </div>

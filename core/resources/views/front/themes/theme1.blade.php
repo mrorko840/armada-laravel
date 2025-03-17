@@ -26,7 +26,7 @@
         }
     @endphp
 
-
+    {{-- slider  --}}
     @if ($setting->is_slider == 1)
         <div class="slider-area-wrapper">
             <div class="container">
@@ -36,11 +36,13 @@
                         <div class="hero-slider">
                             <div class="hero-slider-main owl-carousel dots-inside" >
                                 @foreach ($sliders as $slider)
-                                    <div class="item
-                                    @if (DB::table('languages')->where('is_default',1)->first()->rtl == 1)
-                                    d-flex justify-content-end
-                                    @endif
-                                    "
+                                    <img class="lazy" width="100%" src="{{ asset('assets/images/' . $slider->photo) }}" alt="">
+
+                                    {{-- <div class="item
+                                        @if (DB::table('languages')->where('is_default',1)->first()->rtl == 1)
+                                        d-flex justify-content-end
+                                        @endif
+                                        "
                                         style="background: url('{{ asset('assets/images/' . $slider->photo) }}')">
                                         <div class="item-inner">
                                             <div class="from-bottom">
@@ -53,12 +55,12 @@
                                                 <div class="subtitle text-body">{{ $slider->details }}</div>
                                             </div>
                                             @if($slider->link != '#')
-                                            <a class="btn btn-primary scale-up delay-1" href="{{ $slider->link }}">
-                                                <span>{{ __('Buy Now') }}</span>
-                                            </a>
+                                                <a class="btn btn-primary scale-up delay-1" href="{{ $slider->link }}">
+                                                    <span>{{ __('Buy Now') }}</span>
+                                                </a>
                                             @endif
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 @endforeach
                             </div>
                         </div>
@@ -199,30 +201,30 @@
             <div class="container ">
                 <div class="row gx-3">
                     <div class="col-sm-6">
-                        <a href="{{$banner_third['url1']}}" class="genius-banner">
+                        <div class="genius-banner">
                             <img class="lazy" data-src="{{ asset('assets/images/'.$banner_third['img1']) }}" alt="">
                             <div class="inner-content">
-                                @if (isset($banner_third['subtitle1']))
-                                    <p>{{$banner_third['subtitle1']}}</p>
-                                @endif
                                 @if (isset($banner_third['title1']))
-                                    <h4>{{$banner_third['title1']}}</h4>
+                                    <h1>{{$banner_third['title1']}}</h1>
+                                @endif
+                                @if (isset($banner_third['subtitle1']))
+                                    <a href="{{$banner_third['url1']}}" class="btn btn-sm btn-primary">{{$banner_third['subtitle1']}}</a>
                                 @endif
                             </div>
-                        </a>
+                        </div>
                     </div>
                     <div class="col-sm-6">
-                        <a href="{{$banner_third['url2']}}" class="genius-banner">
+                        <div class="genius-banner">
                             <img class="lazy" data-src="{{ asset('assets/images/'.$banner_third['img2']) }}" alt="">
                             <div class="inner-content">
-                                @if (isset($banner_third['subtitle2']))
-                                    <p>{{$banner_third['subtitle2']}} </p>
-                                @endif
                                 @if (isset($banner_third['title2']))
-                                    <h4>{{$banner_third['title2']}}</h4>
+                                <h1>{{$banner_third['title2']}}</h1>
+                                @endif
+                                @if (isset($banner_third['subtitle2']))
+                                    <a href="{{$banner_third['url1']}}" class="btn btn-sm btn-primary">{{$banner_third['subtitle2']}} </a>
                                 @endif
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
             </div>
