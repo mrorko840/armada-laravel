@@ -486,6 +486,17 @@
                     </section>
                 </div>
                 <style>
+                    .social-icon-new-holder {
+                        display: flex;
+                        gap: 10px;
+                        align-items: center;
+                        transition: all 0.3s ease-in-out;
+                    }
+                    .social-icon-new-holder:hover p, 
+                    .social-icon-new-holder:hover>.social-icon-new i {
+                        color: #ff7300 !important;
+
+                    }
                     .social-icon-new {
                         width: 35px;
                         height: 35px;
@@ -501,8 +512,11 @@
                         color: #333;
                         transition: all 0.3s ease-in-out;
                     }
+                    .social-icon-new-holder p {
+                        transition: all 0.3s ease-in-out;
+                    }
 
-                    .social-icon-new:hover i {
+                    .social-icon-new:hover i, .social-icon-new-holder:hover p {
                         color: #ff7300;
                     }
                 </style>
@@ -517,14 +531,14 @@
                                         {{ str_replace(['-f', '-in'], '', preg_replace("/^fab fa-/", "", $icons[$link_key]))
                                         }}
                                     </a> --}}
-                                    <div class="d-flex align-items-center gap-2">
-                                        <a class="social-icon-new" href="{{$link}}">
+                                    <a href="{{$link}}" class="social-icon-new-holder">
+                                        <div class="social-icon-new" >
                                             <i class="{{$icons[$link_key]}}"></i>
-                                        </a>
+                                        </div>
                                         <p class="text-white text-start mb-0">
                                             {{ ucfirst(str_replace(['-f', '-in'], '', preg_replace("/^fab fa-/", "", $icons[$link_key]))) }}
                                         </p>
-                                    </div>
+                                    </a>
                                     {{--
                                 </li> --}}
                             @endforeach
