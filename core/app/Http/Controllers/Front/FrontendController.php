@@ -68,46 +68,92 @@ class FrontendController extends Controller
 
         $home_customize = HomeCutomize::first();
 
-        // feature category
+    
+        // new feature category
         $feature_category_ids = json_decode($home_customize->feature_category, true);
         $feature_category_title = $feature_category_ids['feature_title'];
         $feature_category = [];
+
+        // ৪টি ক্যাটাগরি লুপ করে বের করা
         for ($i = 1; $i <= 4; $i++) {
             if (!in_array($feature_category_ids['category_id' . $i], $feature_category)) {
-                if ($feature_category_ids['category_id' . $i]) {
+                if (!empty($feature_category_ids['category_id' . $i])) {
                     $feature_category[] = $feature_category_ids['category_id' . $i];
                 }
             }
         }
 
-        $feature_categories = [];
-        foreach ($feature_category as $key => $cat) {
-            $feature_categories[] = Category::findOrFail($cat);
-        }
-        $feature_category_items = [];
-        if (count($feature_categories)) {
-            $index = '';
-            foreach ($feature_categories as $key => $data) {
-                if ($data->id == $feature_category_ids['category_id1']) {
-                    $index = $key;
-                }
+
+        // ক্যাটাগরি অবজেক্ট আনছে
+        $feature_categories = Category::whereIn('id', $feature_category)->get();
+
+
+        // সব সাবক্যাটাগরি ও চাইল্ড ক্যাটাগরি বের করা
+        $subcategories = [];
+        $childcategories = [];
+
+        for ($i = 1; $i <= 4; $i++) {
+            if (!empty($feature_category_ids['subcategory_id' . $i])) {
+                $subcategories[] = $feature_category_ids['subcategory_id' . $i];
             }
-
-            $category = $feature_categories[$index]->id;
-            $subcategory = $feature_category_ids['subcategory_id1'];
-            $childcategory = $feature_category_ids['childcategory_id1'];
-
-            $feature_category_items = Item::when($category, function ($query, $category) {
-                return $query->where('category_id', $category);
-            })
-                ->when($subcategory, function ($query, $subcategory) {
-                    return $query->where('subcategory_id', $subcategory);
-                })
-                ->when($childcategory, function ($query, $childcategory) {
-                    return $query->where('childcategory_id', $childcategory);
-                })
-                ->whereStatus(1)->take(10)->orderby('id', 'desc')->get();
+            if (!empty($feature_category_ids['childcategory_id' . $i])) {
+                $childcategories[] = $feature_category_ids['childcategory_id' . $i];
+            }
         }
+
+        // ফাইনাল ডাটা লোড
+        $feature_category_items = Item::whereIn('category_id', $feature_category)
+            ->whereIn('subcategory_id', $subcategories)
+            // ->whereIn('childcategory_id', $childcategories)
+            ->where('status', 1)
+            ->orderBy('id', 'desc')
+            ->take(12)
+            ->get();
+
+        // new feature category end
+
+        
+        // feature category
+        // $feature_category_ids = json_decode($home_customize->feature_category, true);
+        // $feature_category_title = $feature_category_ids['feature_title'];
+        // $feature_category = [];
+        // for ($i = 1; $i <= 4; $i++) {
+        //     if (!in_array($feature_category_ids['category_id' . $i], $feature_category)) {
+        //         if ($feature_category_ids['category_id' . $i]) {
+        //             $feature_category[] = $feature_category_ids['category_id' . $i];
+        //         }
+        //     }
+        // }
+
+        // $feature_categories = [];
+        // foreach ($feature_category as $key => $cat) {
+        //     $feature_categories[] = Category::findOrFail($cat);
+        // }
+
+        // $feature_category_items = [];
+
+        // if (count($feature_categories)) {
+        //     $index = '';
+        //     foreach ($feature_categories as $key => $data) {
+        //         if ($data->id == $feature_category_ids['category_id1']) {
+        //             $index = $key;
+        //         }
+        //     }
+
+        //     $category = $feature_categories[$index]->id;
+        //     $subcategory = $feature_category_ids['subcategory_id1'];
+        //     $childcategory = $feature_category_ids['childcategory_id1'];
+        //     $feature_category_items = Item::when($category, function ($query, $category) {
+        //         return $query->where('category_id', $category);
+        //     })
+        //         ->when($subcategory, function ($query, $subcategory) {
+        //             return $query->where('subcategory_id', $subcategory);
+        //         })
+        //         ->when($childcategory, function ($query, $childcategory) {
+        //             return $query->where('childcategory_id', $childcategory);
+        //         })
+        //         ->whereStatus(1)->take(12)->orderby('id', 'desc')->get();
+        // }
 
 
         // feature category end
@@ -248,16 +294,16 @@ class FrontendController extends Controller
         // {"title1":"Watchtt","subtitle1":"50% OFF","url1":"#","title2":"Man","subtitle2":"40% OFF","url2":"#","img1":"1637766462banner-h2-4-1.jpeg","img2":"1637766420banner-h2-4-1.jpeg"}
 
         return view('front.index', [
-            'hero_banner'   => $home_customize->hero_banner != '[]' ? json_decode($home_customize->hero_banner, true) : null,
-            'banner_first'   => json_decode($home_customize->banner_first, true),
-            'sliders'  => $sliders,
+            'hero_banner' => $home_customize->hero_banner != '[]' ? json_decode($home_customize->hero_banner, true) : null,
+            'banner_first' => json_decode($home_customize->banner_first, true),
+            'sliders' => $sliders,
             'campaign_items' => CampaignItem::with('item')->whereStatus(1)->whereIsFeature(1)->orderby('id', 'desc')->get(),
             'services' => Service::orderby('id', 'desc')->get(),
-            'posts'    => Post::with('category')->orderby('id', 'desc')->take(8)->get(),
-            'brands'   => Brand::whereStatus(1)->get(),
-            'banner_secend'  => json_decode($home_customize->banner_secend, true),
-            'banner_third'   => json_decode($home_customize->banner_third, true),
-            'brands'   => Brand::whereStatus(1)->whereIsPopular(1)->get(),
+            'posts' => Post::with('category')->orderby('id', 'desc')->take(8)->get(),
+            'brands' => Brand::whereStatus(1)->get(),
+            'banner_secend' => json_decode($home_customize->banner_secend, true),
+            'banner_third' => json_decode($home_customize->banner_third, true),
+            'brands' => Brand::whereStatus(1)->whereIsPopular(1)->get(),
             'products' => Item::with('category')->whereStatus(1),
             'home_page4_banner' => json_decode($home_customize->home_page4, true),
             'pupular_cateogry_home4' => isset($pupular_cateogry_home4) ? $pupular_cateogry_home4 : [],
@@ -299,13 +345,13 @@ class FrontendController extends Controller
         $item = Item::with('category')->whereStatus(1)->whereSlug($slug)->firstOrFail();
         $video = explode('=', $item->video);
         return view('front.catalog.product', [
-            'item'          => $item,
-            'reviews'       => $item->reviews()->where('status', 1)->paginate(3),
-            'galleries'     => $item->galleries,
-            'video'         => $item->video ? end($video) : '',
-            'sec_name'      => isset($item->specification_name) ? json_decode($item->specification_name, true) : [],
-            'sec_details'   => isset($item->specification_description) ? json_decode($item->specification_description, true) : [],
-            'attributes'    => $item->attributes,
+            'item' => $item,
+            'reviews' => $item->reviews()->where('status', 1)->paginate(3),
+            'galleries' => $item->galleries,
+            'video' => $item->video ? end($video) : '',
+            'sec_name' => isset($item->specification_name) ? json_decode($item->specification_name, true) : [],
+            'sec_details' => isset($item->specification_description) ? json_decode($item->specification_description, true) : [],
+            'attributes' => $item->attributes,
             'related_items' => $item->category->items()->whereStatus(1)->where('id', '!=', $item->id)->take(8)->get()
         ]);
     }
@@ -334,15 +380,17 @@ class FrontendController extends Controller
         }
         $tags = array_unique(explode(',', $tagz));
 
-        if (Setting::first()->is_blog == 0) return back();
+        if (Setting::first()->is_blog == 0)
+            return back();
 
-        if ($request->ajax()) return view('front.blog.list', ['posts' => $this->repository->displayPosts($request)]);
+        if ($request->ajax())
+            return view('front.blog.list', ['posts' => $this->repository->displayPosts($request)]);
 
         return view('front.blog.index', [
             'posts' => $this->repository->displayPosts($request),
-            'recent_posts'       => Post::orderby('id', 'desc')->take(4)->get(),
+            'recent_posts' => Post::orderby('id', 'desc')->take(4)->get(),
             'categories' => \App\Models\Bcategory::withCount('posts')->whereStatus(1)->get(),
-            'tags'       => array_filter($tags)
+            'tags' => array_filter($tags)
         ]);
     }
 
@@ -367,7 +415,7 @@ class FrontendController extends Controller
         if (Setting::first()->is_faq == 0) {
             return back();
         }
-        $fcategories =  Fcategory::whereStatus(1)->withCount('faqs')->latest('id')->get();
+        $fcategories = Fcategory::whereStatus(1)->withCount('faqs')->latest('id')->get();
         return view('front.faq.index', ['fcategories' => $fcategories]);
     }
 
@@ -376,7 +424,7 @@ class FrontendController extends Controller
         if (Setting::first()->is_faq == 0) {
             return back();
         }
-        $category =  Fcategory::whereSlug($slug)->first();
+        $category = Fcategory::whereSlug($slug)->first();
         return view('front.faq.show', ['category' => $category]);
     }
 
@@ -389,7 +437,7 @@ class FrontendController extends Controller
         if (Setting::first()->is_campaign == 0) {
             return back();
         }
-        $compaign_items =  CampaignItem::whereStatus(1)->orderby('id', 'desc')->get();
+        $compaign_items = CampaignItem::whereStatus(1)->orderby('id', 'desc')->get();
         return view('front.campaign', ['campaign_items' => $compaign_items]);
     }
 
@@ -445,7 +493,7 @@ class FrontendController extends Controller
         $input = $request->all();
 
         $setting = Setting::first();
-        $name  = $input['first_name'] . ' ' . $input['last_name'];
+        $name = $input['first_name'] . ' ' . $input['last_name'];
         $subject = "Email From " . $name;
         $to = $setting->contact_email;
         $phone = $request->phone;

@@ -680,20 +680,20 @@
                     <div class="col-lg-12">
                         <div class="section-title">
                             <h2 class="h3">{{ $feature_category_title }}</h2>
-                            <div class="links">
+                            {{-- <div class="links">
                                 @foreach ($feature_categories as $key => $feature_category)
-                                <a class="category_get {{$loop->first ? 'active' : ''}}" data-target="feature_category_view"  data-href="{{route('front.popular.category',[$feature_category->slug,'feature_category','normal'])}}" href="javascript:;" class="{{$loop->first ? 'active' : ''}}">{{$feature_category->name}}</a>
+                                <a class="category_get {{$loop->first ? 'active' : ''}}" data-target="feature_category_view"  data-href="{{route('front.popular.category',[$feature_category->slug,'feature_category','normal'])}}" href="javascript:;">{{$feature_category->name}}</a>
                                 @endforeach
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
                 <div class="feature_category_view d-none">
                     <img  src="{{asset('assets/images/ajax_loader.gif')}}" alt="">
                 </div>
-                <div class="row g-3" id="feature_category_view">
+                <div class="popular-category-slider  owl-carousel" id="feature_category_view">
                     @foreach ($feature_category_items as $feature_category_item)
-                    <div class="col-gd">
+                    <div class="slider-item">
                         <div class="product-card">
                             <div class="product-thumb" >
 
@@ -710,7 +710,6 @@
                                         <a data-target="{{route('fornt.compare.product',$feature_category_item->id)}}" class="product-button product_compare" href="javascript:;" title="{{__('Compare')}}"><i class="icon-repeat"></i></a>
 
                                         @include('includes.item_footer',['sitem'=>$feature_category_item]) --}}
-
                                     </div>
                             </div>
                             <div class="product-card-body">
