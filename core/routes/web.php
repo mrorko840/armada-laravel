@@ -218,7 +218,7 @@ Route::group(['middleware' => 'adminlocalize'], function () {
         });
 
 
-        Route::group(['middleware' => 'permissions:Manage Site'], function () {
+        Route::group([], function () {
 
             //------------ SOCIAL ------------
             Route::resource('social', 'Back\SocialController', ['as' => 'back', 'except' => 'show']);
