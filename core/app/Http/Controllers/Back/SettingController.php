@@ -91,7 +91,6 @@ class SettingController extends Controller
      */
     public function update(SettingRequest $request)
     {
-        dd($request->all());
         $this->repository->update($request);
         return redirect()->back()->withSuccess(__('Data Updated Successfully.'));
     }
