@@ -35,7 +35,6 @@
                 <!-- Nested Row within Card Body -->
                     <form class="admin-form" action="{{ route('back.setting.update') }}" method="POST"
                                 enctype="multipart/form-data">
-
                                 @csrf
 
 
