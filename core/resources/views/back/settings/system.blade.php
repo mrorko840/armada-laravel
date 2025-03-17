@@ -34,8 +34,8 @@
             <div class="card-body ">
                 <!-- Nested Row within Card Body -->
                     <form class="admin-form" action="{{ route('back.setting.update') }}" method="POST" enctype="multipart/form-data">
-                    {{-- <form class="admin-form" action="https://google.com" method="POST" enctype="multipart/form-data"> --}}
                         @csrf
+                        @method('PUT')
                         <div class="row">
                             <div class="col-xl-3 col-lg-3">
                                 <div class="nav flex-column m-3 nav-pills nav-secondary" id="v-pills-tab" role="tablist" aria-orientation="vertical">

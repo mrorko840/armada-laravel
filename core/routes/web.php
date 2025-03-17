@@ -232,7 +232,7 @@ Route::group(['middleware' => 'adminlocalize'], function () {
             Route::get('/setting/social', 'Back\SettingController@social')->name('back.setting.social');
             Route::get('/setting/system', 'Back\SettingController@system')->name('back.setting.system');
 
-            Route::post('/setting/update', 'Back\SettingController@update')->name('back.setting.update'); // problem in this route
+            Route::put('/setting/update', 'Back\SettingController@update')->name('back.setting.update'); // problem in this route
             
             Route::post('/setting/update/visiable', 'Back\SettingController@visiable')->name('back.setting.visible.update');
             Route::get('/announcement', 'Back\SettingController@announcement')->name('back.subscribers.announcement');
