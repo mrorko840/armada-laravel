@@ -233,7 +233,7 @@ Route::group(['middleware' => 'adminlocalize'], function () {
             Route::get('/setting/system', 'Back\SettingController@system')->name('back.setting.system');
 
             // Route::post('/setting/update', 'Back\SettingController@update')->name('back.setting.update'); // problem in this route
-            Route::post('/setting-data/update', function () {
+            Route::post('/gggg-data/update', function () {
                 return "Hello";
             })->name('back.gggg.data.update'); // problem in this route
             
