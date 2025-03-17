@@ -136,6 +136,7 @@ $(function ($) {
             smartSpeed: 1200,
             margin: 15,
             thumbs: false,
+            lazyLoad: true,
             responsive: {
                 0: {
                     items: 2,
