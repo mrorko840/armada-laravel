@@ -20,7 +20,7 @@ class SettingRepository
     public function update($request)
     {
 
-
+        dd($request->all());
 
         $data = Setting::find(1);
         $input = $request->all();
