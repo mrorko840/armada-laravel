@@ -390,7 +390,7 @@
                                         @if($popular_category_item->previous_price && $popular_category_item->previous_price !=0)
                                         <div class="product-badge product-badge2 bg-info"> -{{PriceHelper::DiscountPercentage($popular_category_item)}}</div>
                                         @endif
-                                            <img class="lazy" data-src="{{asset('assets/images/'.$popular_category_item->thumbnail)}}" alt="Product">
+                                            <img class="lazy" src="{{asset('assets/images/'.$popular_category_item->thumbnail)}}" alt="Product">
                                             <div class="product-button-group">
                                                 {{-- <a class="product-button wishlist_store" href="{{route('user.wishlist.store',$popular_category_item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
                                                 <a data-target="{{route('fornt.compare.product',$popular_category_item->id)}}" class="product-button product_compare" href="javascript:;" title="{{__('Compare')}}"><i class="icon-repeat"></i></a>
@@ -704,7 +704,7 @@
                                 @if($feature_category_item->previous_price && $feature_category_item->previous_price !=0)
                                 <div class="product-badge product-badge2 bg-info"> -{{PriceHelper::DiscountPercentage($feature_category_item)}}</div>
                                 @endif
-                                    <img class="lazy" data-src="{{asset('assets/images/'.$feature_category_item->thumbnail)}}" alt="Product">
+                                    <img class="lazy" src="{{asset('assets/images/'.$feature_category_item->thumbnail)}}" alt="Product">
                                     <div class="product-button-group">
                                         {{-- <a class="product-button wishlist_store" href="{{route('user.wishlist.store',$feature_category_item->id)}}" title="{{__('Wishlist')}}"><i class="icon-heart"></i></a>
                                         <a data-target="{{route('fornt.compare.product',$feature_category_item->id)}}" class="product-button product_compare" href="javascript:;" title="{{__('Compare')}}"><i class="icon-repeat"></i></a>
